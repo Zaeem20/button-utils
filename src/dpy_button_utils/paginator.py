@@ -115,21 +115,21 @@ class PaginatorView(ui.View):
     @ui.button(label="<<", style=discord.ButtonStyle.secondary)
     async def _first(self, button: ui.Button, interaction: discord.Interaction):
         if interaction.user.id != self._user:
-            return
+            return await interaction.response.send_message('This pagination menu cannot be controlled by you, sorry!', ephemeral=True)
         self._current = 0
         await self._refresh(interaction.message)
 
     @ui.button(label="<", style=discord.ButtonStyle.secondary)
     async def _previous(self, button: ui.Button, interaction: discord.Interaction):
         if interaction.user.id != self._user:
-            return
+            return await interaction.response.send_message('This pagination menu cannot be controlled by you, sorry!', ephemeral=True)
         self._current = max(self._current - 1, 0)
         await self._refresh(interaction.message)
 
     @ui.button(label="x", style=discord.ButtonStyle.danger)
     async def _stop(self, button: ui.Button, interaction: discord.Interaction):
         if interaction.user.id != self._user:
-            return
+            return await interaction.response.send_message('This pagination menu cannot be controlled by you, sorry!', ephemeral=True)
         self._stop.disabled = True
         self._next.disabled = True
         self._last.disabled = True
@@ -152,14 +152,14 @@ class PaginatorView(ui.View):
     @ui.button(label=">", style=discord.ButtonStyle.secondary)
     async def _next(self, button: ui.Button, interaction: discord.Interaction):
         if interaction.user.id != self._user:
-            return
+            return await interaction.response.send_message('This pagination menu cannot be controlled by you, sorry!', ephemeral=True)
         self._current = min(self._current + 1, len(self.messages) + 1)
         await self._refresh(interaction.message)
 
     @ui.button(label=">>", style=discord.ButtonStyle.secondary)
     async def _last(self, button: ui.Button, interaction: discord.Interaction):
         if interaction.user.id != self._user:
-            return
+            return await interaction.response.send_message('This pagination menu cannot be controlled by you, sorry!', ephemeral=True)
         self._current = len(self.messages) - 1
         await self._refresh(interaction.message)
 
